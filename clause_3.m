@@ -21,6 +21,8 @@ unclassifiedResultsCount = 0;
 for i=1:num_images
     classifiedNumber = -1;
     bestResultDistance = 999;
+    maxResult = -999;
+    maxResultDigit = -1;
     currentImage = A_new_test(i,:,:);
 
     for j=0:9
@@ -36,21 +38,27 @@ for i=1:num_images
                 classifiedNumber = j;
             end
         end
+
+        if result > maxResult
+            maxResult = result;
+            maxResultDigit = j;
+        end
     end
 
     % Count the unclassified number
     if classifiedNumber == UNCLASSIFIED
         unclassifiedResultsCount = unclassifiedResultsCount + 1;
+        classifiedNumber = maxResultDigit;
     end
 
-    % Display the current image if it was classified wrong
-    if classifiedNumber ~= true_labels(i,1)
-        imagesc(images(:,:,i));
-        colormap(gray(256))
-        axis image; axis off; 
-        title(['Classified image as ',num2str(classifiedNumber),'. Should be ',num2str(true_labels(i,1))]); 
-        pause;
-    end
+%     % Display the current image if it was classified wrong
+%     if classifiedNumber ~= true_labels(i,1)
+%         imagesc(images(:,:,i));
+%         colormap(gray(256))
+%         axis image; axis off; 
+%         title(['Classified image as ',num2str(classifiedNumber),'. Should be ',num2str(true_labels(i,1))]); 
+%         pause;
+%     end
 
     pred(i,1) = classifiedNumber;
 end
@@ -58,5 +66,4 @@ end
 
 %% =========================== Evaluate ==============================
 acc = mean(pred == true_labels)*100;
-disp(['Accuracy=',num2str(acc),'% (',num2str((1-acc/100)*num_images),' wrong examples)']); 
-disp(['Couldnt classify ', num2str(unclassifiedResultsCount), ' results']); 
+disp(['Accuracy=',num2str(acc),'% (',num2str((1-acc/100)*num_images),' wrong examples)']);
