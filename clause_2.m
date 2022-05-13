@@ -17,24 +17,6 @@ for wantedDigit=0:9
     % Seperate the images into imagesPerWantedDigit and imagesPerOtherDigits
     imagesPerWantedDigit = training.images(:,:,training.labels == wantedDigit);
     imagesPerOtherDigits = training.images(:,:,training.labels ~= wantedDigit);
-
-%     % Display the 100th first images for imagesPerWantedDigit and imagesPerOtherDigits
-%     figure(1); 
-%     for k=1:1:100
-%         imagesc(imagesPerWantedDigit(:,:,k));
-%         colormap(gray(256))
-%         axis image; axis off; 
-%         pause(0.1);
-%     end
-%     
-%     figure(1); 
-
-%     for k=1:1:100
-%         imagesc(imagesPerOtherDigits(:,:,k));
-%         colormap(gray(256))
-%         axis image; axis off; 
-%         pause(0.1);
-%     end
     
     % Create A, b
     A_all = zeros(2*N,28^2);
