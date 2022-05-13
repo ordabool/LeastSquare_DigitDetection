@@ -7,7 +7,7 @@ load('mnist.mat');
 N = 4000;
 
 %%  ========= Find the classifier 'x' for every digit ===========
-for wantedDigit=0:9 % TODO: change to 0:9
+for wantedDigit=0:9
 
     % Reset the iteritive variables
     clear("imagesPerWantedDigit","imagesPerOtherDigits","A_all","b_all","A_train","b_train","x", "A_test", "b_test", "predC", "trueC", "acc", "error");
